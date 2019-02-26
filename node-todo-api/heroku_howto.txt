@@ -1,0 +1,11 @@
+  heroku login
+  heroku config
+  heroku config:set JWT_SECRET="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzc0MmJlMWQxMDljYjdjMTU3MzRmZTUiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTUxMTE3MjgxfQ"
+  git status
+  git init
+  git add .
+  git commit -m 'Deloy it to Heroku'
+  heroku create
+  git push --set-upstream heroku master
+  git push heroku
+  heroku logs -n 200

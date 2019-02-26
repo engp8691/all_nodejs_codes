@@ -1,0 +1,7 @@
+git status
+git add .
+git --help
+git commit -m "all nodejs"
+git remote add origin https://github.com/engp8691/all_nodejs_codes.git
+git push -u origin master
+
