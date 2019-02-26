@@ -1,7 +1,17 @@
-const generateMessage = (from, text)=>{
-	const createdAt = Date.now();
+const moment = require('moment');
 
-	return { from, text, createdAt };
+const generateMessage = (from, text)=>{
+	const createdAt = moment().format('MM/DD/YYYY h:MM a');
+
+	return {from, text, createdAt};
 };
 
-module.exports = {generateMessage};
+const generateLocationMessage = (from, latitude, longitude)=>{
+	const createdAt = moment().format('MM/DD/YYYY h:MM a');
+
+	const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+	return {from, url, createdAt};
+};
+
+module.exports = {generateMessage, generateLocationMessage};
+
