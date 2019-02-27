@@ -58,7 +58,10 @@ io.on('connection', (socket)=>{
 
 	socket.on('createMessage', (message, callback)=>{
 		console.log('createMessage', message);
-		io.emit('newMessage', generateMessage(message.from, message.text));
+		let user = users.getUser(socket.id);
+		if(user && isRealString(message.text)){
+			io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+		}
 		try{
 			callback("You message is redistributed");
 		}catch(e){
@@ -67,7 +70,10 @@ io.on('connection', (socket)=>{
 	})
 
 	socket.on('createLocationMessage', (coords)=>{
-		io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+		let user = users.getUser(socket.id);
+		if(user){
+			io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+		}
 	});
 
 	socket.on('disconnect', ()=>{
@@ -75,15 +81,13 @@ io.on('connection', (socket)=>{
 		let user = users.removeUser(socket.id);
 		if(user){
 			io.to(user.room).emit('updateUserList', users.getUserList(user.room));
-			io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} had left`));
+			io.to(user.room).emit('newMessage', generateMessage(user.name, `${user.name} had left`));
 		}
 	});
 
 	socket.on('updateUserList', function(users){
 		console.log('Users List', users);
 	});
-
-
 });
 
 server.listen(port, (res, req)=>{
@@ -93,3 +97,4 @@ server.listen(port, (res, req)=>{
 
 console.log(__dirname + "/../public");
 console.log(publicPath);
+

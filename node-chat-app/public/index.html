@@ -9,6 +9,8 @@
 <body class="centered-form">
 	<div class="centered-form__form">
 		<form action="/chat.html">
+		<input type="hidden" id="room" name="room" value="family">
+
 		<div class="form-field">
 			<h3>Join a chat</h3>
 		</div>
@@ -18,7 +20,7 @@
 		</div>
 		<div class="form-field">
 			<label>Room name</label>
-			<input type="text" name="room" autofocus />
+			<input type="text" name="fakeroom" value='nodejs test' disabled=true autofocus />
 		</div>
 		<div class="form-field">
 			<button>Join</button>
