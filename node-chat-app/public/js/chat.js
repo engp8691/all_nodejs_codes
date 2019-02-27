@@ -81,6 +81,7 @@ $("#message-form").on('submit', function(e){
 		text: messageTextbox.val()
 	}, function(acknowledgement){
 		$('[name=message]').val('');
+		$('[name=message]').focus();
 		console.log('Got it: ', acknowledgement);
 	});
 });

@@ -4,6 +4,7 @@ const socketIO = require('socket.io');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
+const messages = require('./utils/demomessages.json');
 
 const path = require('path');
 const publicPath = path.join(__dirname, '../public');
@@ -50,6 +51,9 @@ io.on('connection', (socket)=>{
 		// socket.broadcast.to(param.room).emit(); chain them
 
 		io.to(params.room).emit('updateUserList', users.getUserList(params.room));
+		messages.forEach((msg)=>{
+			socket.emit('newMessage', generateMessage(msg.name, msg.text));
+		});
 		socket.emit('newMessage', generateMessage("Admin", "Welcome to the chat app"));
 		socket.broadcast.to(params.room).emit('newMessage', generateMessage("Admin", `${params.name} joined`));
 
